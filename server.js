@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const hospitalitems = require("./hospitalitems");
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -9,6 +10,8 @@ app.use(express.json())
 app.get("/", (req, res) => {
     res.send("Welcome to the Hospital Product Inventory API!");
 });
+
+
 
 /*
 TODO: Product Inventory Routes
