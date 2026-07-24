@@ -51,7 +51,8 @@ app.put("/items/:id", (req, res) => {
             message: "Hospital item updated successfully",
             item
         });
-    };
+    }
+});
 
 /*
 TODO: Product Inventory Routes
