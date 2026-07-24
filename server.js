@@ -11,6 +11,9 @@ app.get("/", (req, res) => {
     res.send("Welcome to the Hospital Product Inventory API!");
 });
 
+app.get("/inventory", (req, res)=>{
+    res.status(200).json(hospitalitems);
+});
 
 
 /*
