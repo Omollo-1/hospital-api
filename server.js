@@ -57,6 +57,19 @@ app.put("/items/:id", (req, res) => {
         item
     });
 });
+
+app.delete("/items/:id" , (req , res) =>{
+  const id = parseInt(req.params.id);
+  const initialLength = hospitalitems.length;
+
+  let currentHospitalItems = hospitalitems.filter((t) => t.id !== id);
+
+  if (currentHospitalItems.length === initialLength) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  res.status(200).json({ message: "Product deleted successfully" });
+})
 /*
 TODO: Product Inventory Routes
   - Add product (POST)
