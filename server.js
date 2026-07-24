@@ -38,24 +38,25 @@ app.get("/items/:id", (req, res) => {
 app.put("/items/:id", (req, res) => {
     const id = Number(req.params.id);
     const { name, qty } = req.body;
-    const hospitalItemIndex = hospitalitems.findIndex(item => item.id === id);
-const item = hospitalitems.find(item => item.id === id);
 
-    if (!item){
+    const item = hospitalitems.find(item => item.id === id);
+
+    if (!item) {
         return res.status(404).json({
-            success: false, 
-            message: "Hospital item not found"  
-        });
-        if (name) item.name = name;
-        if (qty) item.qty = qty;
-        res.status(200).json({
-            success: true,
-            message: "Hospital item updated successfully",
-            item
+            success: false,
+            message: "Hospital item not found"
         });
     }
-});
 
+    if (name) item.name = name;
+    if (qty) item.qty = qty;
+
+    res.status(200).json({
+        success: true,
+        message: "Hospital item updated successfully",
+        item
+    });
+});
 /*
 TODO: Product Inventory Routes
   - Add product (POST)
