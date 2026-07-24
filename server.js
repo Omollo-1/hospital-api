@@ -1,9 +1,20 @@
 require("dotenv").config();
+
+const fs = require("fs");
+const path = require("path");
+
 const express = require("express");
-const hospitalitems = require("./hospitalitems");
+
+const DATA_FILE = path.join(__dirname, "hospitalitems.json");
+let hospitalitems = JSON.parse(fs.readFileSync(DATA_FILE, "utf-8"));
+
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+
+function saveItems() {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(hospitalitems, null, 2));
+}
 
 app.use(express.json())
 
@@ -62,9 +73,9 @@ app.delete("/items/:id" , (req , res) =>{
   const id = parseInt(req.params.id);
   const initialLength = hospitalitems.length;
 
-  let currentHospitalItems = hospitalitems.filter((t) => t.id !== id);
-
-  if (currentHospitalItems.length === initialLength) {
+  hospitalitems = hospitalitems.filter((t) => t.id !== id);
+  saveItems(); 
+  if (hospitalitems.length === initialLength) {
     return res.status(404).json({ message: "Product not found" });
   }
 
