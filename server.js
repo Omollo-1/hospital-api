@@ -39,6 +39,8 @@ app.put("/items/:id", (req, res) => {
     const id = Number(req.params.id);
     const { name, qty } = req.body;
     const hospitalItemIndex = hospitalitems.findIndex(item => item.id === id);
+const item = hospitalitems.find(item => item.id === id);
+
     if (!item){
         return res.status(404).json({
             success: false, 
