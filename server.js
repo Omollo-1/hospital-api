@@ -13,6 +13,27 @@ app.get("/", (req, res) => {
 
 
 
+
+// GET /items - View all hospital items
+app.get("/items", (req, res) => {
+    res.json(hospitalitems);
+});
+
+//Search for a hospital item by ID
+app.get("/items/:id", (req, res) => {
+    const id = Number(req.params.id);
+
+    const item = hospitalitems.find(item => item.id === id);
+
+    if (!item) {
+        return res.status(404).json({
+            error: "Hospital item not found"
+        });
+    }
+
+    res.status(200).json(item);
+});
+
 /*
 TODO: Product Inventory Routes
   - Add product (POST)
@@ -22,6 +43,6 @@ TODO: Product Inventory Routes
 */
 
 
-app.listen(PORT , () =>{
-     console.log(`Message : Server is listening on port ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Message : Server is listening on port ${PORT}`)
 })
