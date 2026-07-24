@@ -70,16 +70,20 @@ app.put("/items/:id", (req, res) => {
 });
 
 app.delete("/items/:id" , (req , res) =>{
-  const id = parseInt(req.params.id);
+  const id = Number(req.params.id);
   const initialLength = hospitalitems.length;
 
   hospitalitems = hospitalitems.filter((t) => t.id !== id);
   saveItems(); 
   if (hospitalitems.length === initialLength) {
-    return res.status(404).json({ message: "Product not found" });
+    return res.status(404).json({ 
+        success: false,
+        message: "Hospital item not found" });
   }
 
-  res.status(200).json({ message: "Product deleted successfully" });
+  res.status(200).json({ 
+    success: true,
+    message: "Hospital item deleted successfully" });
 })
 /*
 TODO: Product Inventory Routes

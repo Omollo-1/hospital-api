@@ -30,6 +30,11 @@
     "qty": 30
   },
   {
+    "id": 7,
+    "name": "Syringe",
+    "qty": 130
+  },
+{
     "id": 8,
     "name": "Sanitizer",
     "qty": 80
