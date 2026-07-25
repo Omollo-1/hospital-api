@@ -48,6 +48,36 @@ return res.status(404).json({
     item
 });
 });
+// Add a new hospital item
+app.post("/items", (req, res) => {
+
+    const { name, qty } = req.body;
+
+    if (!name || qty === undefined) {
+        return res.status(400).json({
+            success: false,
+            message: "Name and quantity are required."
+        });
+    }
+const maxId = Math.max(...hospitalitems.map(item => item.id), 0);
+    const newItem = {
+        id: maxId + 1,
+        name,
+        qty
+    };
+
+    hospitalitems.push(newItem);
+
+    saveItems();
+
+    res.status(201).json({
+        success: true,
+        message: "Hospital item added successfully.",
+        item: newItem
+    });
+
+});
+
 app.put("/items/:id", (req, res) => {
     const id = Number(req.params.id);
     const { name, qty } = req.body;
@@ -62,7 +92,9 @@ app.put("/items/:id", (req, res) => {
     }
 
     if (name) item.name = name;
-    if (qty) item.qty = qty;
+    if (qty !== undefined) item.qty = qty;
+
+    saveItems();
 
     res.status(200).json({
         success: true,
@@ -87,13 +119,7 @@ saveItems();
     success: true,
     message: "Hospital item deleted successfully" });
 })
-/*
-TODO: Product Inventory Routes
-  - Add product (POST)
-  - Edit product (PUT/PATCH)
-  - Delete product (DELETE)
-  - Fetch products (GET)
-*/
+
 
 
 app.listen(PORT, () => {
