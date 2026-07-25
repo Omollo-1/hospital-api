@@ -34,18 +34,20 @@ app.get("/items", (req, res) => {
 //Search for a hospital item by ID
 app.get("/items/:id", (req, res) => {
     const id = Number(req.params.id);
-
-    const item = hospitalitems.find(item => item.id === id);
-
-    if (!item) {
-        return res.status(404).json({
-            error: "Hospital item not found"
+const item = hospitalitems.find(item => item.id === id);
+if (!item) {
+return res.status(404).json({
+    success: false,
+    message: "Hospital item not found. Please check the item ID and try again."
         });
     }
 
-    res.status(200).json(item);
+   res.status(200).json({
+    success: true,
+    message: "Hospital item retrieved successfully.",
+    item
 });
-
+});
 app.put("/items/:id", (req, res) => {
     const id = Number(req.params.id);
     const { name, qty } = req.body;
@@ -74,13 +76,13 @@ app.delete("/items/:id" , (req , res) =>{
   const initialLength = hospitalitems.length;
 
   hospitalitems = hospitalitems.filter((t) => t.id !== id);
-  saveItems(); 
+  
   if (hospitalitems.length === initialLength) {
     return res.status(404).json({ 
         success: false,
         message: "Hospital item not found" });
   }
-
+saveItems(); 
   res.status(200).json({ 
     success: true,
     message: "Hospital item deleted successfully" });
