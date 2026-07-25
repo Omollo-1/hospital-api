@@ -10,7 +10,7 @@ let hospitalitems = JSON.parse(fs.readFileSync(DATA_FILE, "utf-8"));
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 function saveItems() {
     fs.writeFileSync(DATA_FILE, JSON.stringify(hospitalitems, null, 2));
