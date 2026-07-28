@@ -19,7 +19,14 @@ function saveItems() {
 app.use(express.json())
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Hospital Product Inventory API!");
+    res.status(200).json({
+        success: true,
+        name: "Hospital Product Inventory API",
+        version: "1.0.0",
+        description: "Backend API for managing hospital inventory items",
+        team: "Group 5C",
+        status: "Running"
+    });
 });
 
 app.get("/inventory", (req, res)=>{
