@@ -55,6 +55,28 @@ return res.status(404).json({
     item
 });
 });
+
+// Search hospital items by name
+app.get("/items/search", (req, res) => {
+    const { name } = req.query;
+
+    if (!name) {
+        return res.status(400).json({
+            success: false,
+            message: "Please provide an item name to search."
+        });
+    }
+
+    const matchedItems = hospitalitems.filter(item =>
+        item.name.toLowerCase().includes(name.toLowerCase())
+    );
+
+    res.status(200).json({
+        success: true,
+        items: matchedItems
+    });
+});
+
 // Add a new hospital item
 app.post("/items", (req, res) => {
 
